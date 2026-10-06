@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+    crossorigin="anonymous"
+  />
+  <body class ="bg-dark text-white ">
+    
+    <div style="height: 40vh;" class ="d-flex justify-content-center">
+        <div class="border p-5 d-flex flex-column gap-4">
+            
+            <input id="heightinput" placeholder="Height" type ="text" class="form-control">
+            <input id="weightinput"  placeholder="Weight" type ="text" class="form-control">
+            <button id="addBtn" onclick="onAddBtnClick()" class="btn btn-outline-light bg-danger">Add</button>
+        </div>
+    </div>
+
+    
+        <div style=" width:300px;" class="border p-5 d-flex flex-column gap-4 m-5">
+            
+            <h1 >Todo</h1>
+            <h2 >Time</h2>
+           
+            <div class="d-flex justify-content-evenly">
+                <button onclick="editBtnClick()"  class=" text-warning btn btn-outline-light ">edit </button>
+             <button onclick="onDeleteClick()"  class=" text-success btn btn-outline-light text-red">delete </button>
+            </div>
+           
+        </div>
+    </div>
+  </body>
+  <script src="./script.js"></script>
+</html>
