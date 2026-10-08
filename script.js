@@ -1,59 +1,63 @@
-const getData= ()=> {
-    try {
-    let data =localStorage.getItem('data')
-    data= JSON.parse(data)
-    if(data){
-        document.getElementsByTagName('h1')[0].innerText= data.heightinputVal
-    document.getElementsByTagName('h2')[0].innerText= data.weightInputVal
+const getData = () => {
+  try {
+    let data = localStorage.getItem("data");
+    if (data) {
+      let dataObj = JSON.parse(data);
+      document.getElementById("bmiText").innerText = dataObj.BMI;
+      document.getElementById("categoryText").innerText = dataObj.Category;
+    } else {
+      document.getElementById("bmiText").innerText = "BMI";
+      document.getElementById("categoryText").innerText = "Category";
     }
-else{
- document.getElementsByTagName('h1')[0].innerText= "no input"
-    document.getElementsByTagName('h2')[0].innerText= "no input"
-}
-}catch(error){
-    console.log(error)
-}
-}
-getData()
+  } catch (error) {
+    console.log(error);
+  }
+};
+const onAddBtnclick = () => {
+  try {
+    let weight = document.getElementById("weight").value;
+    let height = document.getElementById("height").value;
 
-const onAddBtnClick =()=>{
-    try {
-          let heightinputVal = document.getElementById('heightinput').value
-    let weightInputVal = document.getElementById('weightinput').value
-   let  obj ={heightinputVal, weightInputVal}
-   console.log(obj)
-
-   let jsonObj =JSON.stringify(obj)
-   console.log(jsonObj)
-
-localStorage.setItem("data",jsonObj)
-alert("Successfully saved")
-document.getElementById('heightinput').value=""
-document.getElementById('weightinput').value=""
-getData()
-}catch(error){
-    console.log(error)
-    alert("error occured whilel saving")
-}
-}
-const onDeleteClick =()=>{
-    try{
-        localStorage.removeItem('data')
-        alert('Successfully deleted')
-        getData()
-    }catch(error){
-        console.log(error)
-        alert("deletion failed")
+    height = height / 100;
+    let BMI = weight / (height * height);
+    BMI = BMI.toFixed(2);
+    let Category;
+    if (BMI < 18.5) {
+      Category = "Underweight";
+    } else if (BMI < 25) {
+      Category = "Normal";
+    } else if (BMI < 30) {
+      Category = "Overweight";
+    } else {
+      Category = "Obese";
     }
-}
-const editBtnClick =() =>{
-    let data = localStorage.getItem('data')
-    data=JSON.parse(data)
+    let obj = {
+      weight,
+      height,
+      BMI,
+      Category,
+    };
+    let jsonObj = JSON.stringify(obj);
+    localStorage.setItem("data", jsonObj);
+    alert("Successfully saved");
+    getData();
+  } catch (error) {
+    console.log(error);
+    alert("Failed to store");
+  }
+};
+const onDeleteBtnclick = () => {
+  try {
+    localStorage.removeItem("data");
+    document.getElementById("bmiText").innerText = "BMI";
+    document.getElementById("categoryText").innerText = "Category";
 
-    document.getElementById('heightinput').value= data.heightinputVal
-    document.getElementById('weightinput').value= data.weightInputVal
-
-    document.getElementById('addBtn').innerText="Edit"
-    document.getElementById('addBtn').className= "btn btn-warning"
-    onDeleteClick()
-}
+    document.getElementById("weight").value = "";
+    document.getElementById("height").value = "";
+    alert("Successfully cleared");
+    getData();
+  } catch (error) {
+    console.log(error);
+    alert("Deletion failed");
+  }
+};
